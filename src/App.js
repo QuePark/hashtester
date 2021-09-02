@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
 const hashFunc = require('hash.js');
 const SALT = 'codestates';
 const hash = (text) =>
@@ -29,8 +29,8 @@ function App() {
 			<div style={{ display: 'flex', flexDirection: 'column' }}>
 				<textarea
 					style={{
-						width: '99%',
-						height: '200px',
+						width: '90vw',
+						height: '10vw',
 						margin: '20px',
 						resize: 'none',
 					}}
@@ -39,20 +39,35 @@ function App() {
 					onChange={updateText}
 					value={inputText}></textarea>
 				<button
-					style={{ width: '100%', margin: '0px 20px' }}
+					style={{ width: '15vw', margin: '0px auto' }}
 					onClick={clearText}>
 					Clear
 				</button>
 				<div
 					style={{
-						width: '100%',
-						height: '20px',
+						width: '90vw',
+						height: '5vw',
 						margin: '20px',
 						border: '1px solid whitesmoke',
 						textAlign: 'left',
+						overflow: 'auto',
 					}}>
-					{'Result: ' + result}
+					<span>Result: </span>
+					<span className='result'>{result}</span>
 				</div>
+				<button
+					style={{ width: '15vw', margin: '0px auto' }}
+					onClick={() => {
+						const range = document.createRange();
+						range.selectNode(document.querySelector('.result').childNodes[0]);
+						const select = window.getSelection();
+						select.removeAllRanges();
+						select.addRange(range);
+						document.execCommand('copy');
+						select.removeRange(range);
+					}}>
+					Copy
+				</button>
 			</div>
 		</div>
 	);
